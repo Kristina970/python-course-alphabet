@@ -57,7 +57,7 @@ class MinTestCases(unittest.TestCase):
             {'age': 55, 'name': 'Frank'},
             {'age': 83, 'name': 'Homer'}
         ]
-        self.assertDictEqual(task_6_min_value_list_of_dicts(data=members, key='age'), members[2])
+        self.assertDictEqual(task_6_min_value_list_of_dicts(data=members, key='age'), members[4])
 
     def test_task_6_empty_fields(self):
         members = [
@@ -71,7 +71,7 @@ class MinTestCases(unittest.TestCase):
             {'age': 55, 'name': 'Frank'},
             {'age': 83, 'name': 'Homer'}
         ]
-        self.assertDictEqual(task_6_min_value_list_of_dicts(data=members, key='age'), members[4])
+        self.assertDictEqual(task_6_min_value_list_of_dicts(data=members, key='age'), members[2])
 
 
 class SumTestCases(unittest.TestCase):

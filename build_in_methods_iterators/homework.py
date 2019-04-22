@@ -57,7 +57,7 @@ def task_6_min_value_list_of_dicts(data: DT, key: str) -> ST:
     Find minimum value by given key
     Returns:
     """
-    return min(data, key=lambda member: member.get('age', 0))
+    return min(data, key=lambda member: member.get('age', 100))
 
 
 def task_7_max_value_list_of_lists(data: List[List[int]]) -> int:
