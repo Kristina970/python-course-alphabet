@@ -19,7 +19,11 @@ def task_1_add_new_record_to_db(con) -> None:
     Returns: 92 records
 
     """
-    pass
+    # with conn.cursor() as cursor:
+    #     cursor.execute("INSERT INTO customers \
+    #             VALUES (87, 'Thomas', 'David', 'Tangkerang Pekanbaru Jl.', 'Sang Nila Utama', 774, 'Singapore';")
+    #     return con.commit()
+
 
 
 def task_2_list_all_customers(cur) -> list:
@@ -32,7 +36,8 @@ def task_2_list_all_customers(cur) -> list:
     Returns: 91 records
 
     """
-    pass
+    cur.execute("SELECT * FROM customers;")
+    return cur.fetchall()
 
 
 def task_3_list_customers_in_germany(cur) -> list:
@@ -44,7 +49,8 @@ def task_3_list_customers_in_germany(cur) -> list:
 
     Returns: 11 records
     """
-    pass
+    cur.execute("SELECT * FROM customers WHERE country = 'Germany';")
+    return cur.fetchall()
 
 
 def task_4_update_customer(con):
@@ -79,7 +85,8 @@ def task_6_list_all_supplier_countries(cur) -> list:
     Returns: 29 records
 
     """
-    pass
+    cur.execute("SELECT country FROM suppliers;")
+    return cur.fetchall()
 
 
 def task_7_list_supplier_countries_in_desc_order(cur) -> list:
@@ -92,7 +99,8 @@ def task_7_list_supplier_countries_in_desc_order(cur) -> list:
     Returns: 29 records in descending order
 
     """
-    pass
+    cur.execute("SELECT country FROM suppliers ORDER BY country DESC;")
+    return cur.fetchall()
 
 
 def task_8_count_customers_by_city(cur):
@@ -105,7 +113,8 @@ def task_8_count_customers_by_city(cur):
     Returns: 69 records in descending order
 
     """
-    pass
+    cur.execute("SELECT COUNT(customerid), city  FROM customers GROUP BY city;")
+    return cur.fectall()
 
 
 def task_9_count_customers_by_country_with_than_10_customers(cur):
@@ -117,7 +126,8 @@ def task_9_count_customers_by_country_with_than_10_customers(cur):
 
     Returns: 3 records
     """
-    pass
+    cur.execute("SELECT COUNT(customerid), country FROM customers GROUP BY country HAVING COUNT(customerid) >10;")
+    return cur.fetchall()
 
 
 def task_10_list_first_10_customers(cur):
@@ -126,7 +136,8 @@ def task_10_list_first_10_customers(cur):
 
     Results: 10 records
     """
-    pass
+    cur.execute("SELECT * FROM customers LIMIT 10;")
+    return cur.fetchall()
 
 
 def task_11_list_customers_starting_from_11th(cur):
@@ -138,7 +149,8 @@ def task_11_list_customers_starting_from_11th(cur):
 
     Returns: 11 records
     """
-    pass
+    cur.execute("SELECT * FROM customers OFFSET 10;")
+    return cur.fetchall()
 
 
 def task_12_list_suppliers_from_specified_countries(cur):
