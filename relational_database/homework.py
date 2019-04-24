@@ -19,10 +19,10 @@ def task_1_add_new_record_to_db(con) -> None:
     Returns: 92 records
 
     """
-    # with conn.cursor() as cursor:
-    #     cursor.execute("INSERT INTO customers \
-    #             VALUES (87, 'Thomas', 'David', 'Tangkerang Pekanbaru Jl.', 'Sang Nila Utama', 774, 'Singapore';")
-    #     return con.commit()
+    cursor = con.cursor()
+    cursor.execute("""INSERT INTO customers 
+                VALUES (87, 'Thomas', 'David', 'Tangkerang Pekanbaru Jl.', 'Sang Nila Utama', 774, 'Singapore';""")
+
 
 
 
@@ -62,8 +62,8 @@ def task_4_update_customer(con):
     Returns: 91 records with updated customer
 
     """
-    pass
-
+    cursor = con.cursor()
+    cursor.execute("UPDATE customers SET customername = 'Johnny Depp' where customerid = 1;")
 
 def task_5_delete_the_last_customer(con) -> None:
     """
@@ -72,8 +72,8 @@ def task_5_delete_the_last_customer(con) -> None:
     Args:
         con: psycopg connection
     """
-    pass
-
+    cursor = con.cursor()
+    cursor.execute("DELETE FROM customers ORDER BY customerid desc LIMIT 1;")
 
 def task_6_list_all_supplier_countries(cur) -> list:
     """
