@@ -130,7 +130,8 @@ def task_9_count_customers_by_country_with_than_10_customers(cur):
 
     Returns: 3 records
     """
-    cur.execute("SELECT COUNT(customerid), country FROM customers GROUP BY country HAVING COUNT(customerid) >10;")
+    cur.execute("""SELECT COUNT(customerid), country 
+    FROM customers GROUP BY country HAVING COUNT(customerid) >10;""")
     return cur.fetchall()
 
 
@@ -168,8 +169,8 @@ def task_12_list_suppliers_from_specified_countries(cur):
     """
     cur.execute("""SELECT
     supplierid, suppliername, contactname, city, country
-    FROM suppliers WHERE
-    country IN ('USA', 'UK','Japan');""")
+    FROM suppliers 
+    WHERE country IN ('USA', 'UK','Japan');""")
     return cur.fetchall()
 
 
@@ -182,7 +183,8 @@ def task_13_list_products_from_sweden_suppliers(cur):
 
     Returns: 3 records
     """
-    cur.execute("""SELECT products.productname, suppliers.country FROM products 
+    cur.execute("""SELECT products.productname, suppliers.country 
+    FROM products 
     JOIN suppliers ON products.supplierid = suppliers.supplierid 
     WHERE suppliers.country = 'Sweden';""")
     return cur.fetchall()
