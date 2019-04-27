@@ -75,9 +75,8 @@ def task_5_delete_the_last_customer(con) -> None:
         con: psycopg connection
     """
     cursor = con.cursor()
-    cursor.execute("DELETE FROM customers WHEREcustomerid = (SELECT MAX(customerid) FROM customers)")
+    cursor.execute("DELETE FROM customers WHERE customerid = (SELECT MAX(customerid) FROM customers)")
     con.commit()
-
 
 def task_6_list_all_supplier_countries(cur) -> list:
     """
