@@ -75,7 +75,7 @@ def task_5_delete_the_last_customer(con) -> None:
         con: psycopg connection
     """
     cursor = con.cursor()
-    cursor.execute("DELETE FROM customers ORDER BY customerid desc LIMIT 1;")
+    cursor.execute("DELETE FROM customers WHEREcustomerid = (SELECT MAX(customerid) FROM customers)")
     con.commit()
 
 
@@ -183,7 +183,7 @@ def task_13_list_products_from_sweden_suppliers(cur):
 
     Returns: 3 records
     """
-    cur.execute("""SELECT products.productname, suppliers.country 
+    cur.execute("""SELECT products.productname
     FROM products 
     JOIN suppliers ON products.supplierid = suppliers.supplierid 
     WHERE suppliers.country = 'Sweden';""")
@@ -234,9 +234,9 @@ def task_16_match_all_customers_and_suppliers_by_country(cur):
     customers.address, 
     customers.country AS customercountry, 
     suppliers.country AS suppliercountry, 
-    suppliername 
+    suppliers.suppliername 
     FROM customers 
-    FULL OUTER JOIN suppliers ON customers.country = suppliers.country;""")
+    FULL OUTER JOIN suppliers ON customers.country = suppliers.country ORDER BY customercountry, suppliercountry;""")
     return cur.fetchall()
 
 
