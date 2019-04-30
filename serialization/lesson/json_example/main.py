@@ -64,7 +64,7 @@ if __name__ == "__main__":
     # Without hook
     print(json.loads(serialized_data_2))
 
-    # With hook
-    print_separator()
-    print("With hook")
-    print(json.loads(serialized_data_2, object_hook=json_hook))
+    # # With hook
+    # print_separator()
+    # print("With hook")
+    # print(json.loads(serialized_data_2, object_hook = json_hook))
