@@ -53,11 +53,11 @@
 """
 
 
-<<<<<<< HEAD
 class Millionaire:
-=======
+    pass
+
+
 class Cesar:
->>>>>>> df016b159cd1c734d557d2b92ea75377bf916c2b
     pass
 
 
@@ -66,15 +66,13 @@ class Car:
 
 
 class Garage:
-<<<<<<< HEAD
-    class Garage:
-        def __init__(self, towns, cars, places, owner=None):
+    def __init__(self, towns, cars, places, owner=None):
             self.town = towns
             self.cars = cars
             self.places = places
 
 
 
-=======
-    pass
->>>>>>> df016b159cd1c734d557d2b92ea75377bf916c2b
+
+
+

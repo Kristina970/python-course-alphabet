@@ -14,10 +14,10 @@ class Programmer:
         return f"Programmer. Name: {self.name}." \
             f"Lang :{self.language}; Position: {self.position} developer"
 
-    def __setstate__(self, state):
+    def __setstate__(self, state):      # deserialize object
         self.__dict__ = state
 
-    def __getstate__(self):
+    def __getstate__(self):         # serialize object
         return self.__dict__
 
 
