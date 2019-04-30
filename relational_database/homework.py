@@ -169,8 +169,6 @@ def task_12_list_suppliers_from_specified_countries(cur):
     """
     cur.execute("""SELECT
     supplierid, suppliername, contactname, city, country
-    FROM suppliers 
-    WHERE country IN ('USA', 'UK','Japan');""")
     return cur.fetchall()
 
 
