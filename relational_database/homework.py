@@ -75,7 +75,7 @@ def task_5_delete_the_last_customer(con) -> None:
         con: psycopg connection
     """
     cursor = con.cursor()
-    cursor.execute("DELETE FROM customers ORDER BY customerid desc LIMIT 1;")
+    cursor.execute("DELETE FROM customers WHERE customerid = (SELECT MAX(customerid) FROM customers);")
     con.commit()
 
 
@@ -118,7 +118,7 @@ def task_8_count_customers_by_city(cur):
 
     """
     cur.execute("SELECT COUNT(customerid), city  FROM customers GROUP BY city;")
-    return cur.fectall()
+    return cur.fetchall()
 
 
 def task_9_count_customers_by_country_with_than_10_customers(cur):
@@ -130,7 +130,8 @@ def task_9_count_customers_by_country_with_than_10_customers(cur):
 
     Returns: 3 records
     """
-    cur.execute("SELECT COUNT(customerid), country FROM customers GROUP BY country HAVING COUNT(customerid) >10;")
+    cur.execute("""SELECT COUNT(customerid), country 
+    FROM customers GROUP BY country HAVING COUNT(customerid) >10;""")
     return cur.fetchall()
 
 
@@ -153,7 +154,7 @@ def task_11_list_customers_starting_from_11th(cur):
 
     Returns: 11 records
     """
-    cur.execute("SELECT * FROM customers OFFSET 10;")
+    cur.execute("SELECT * FROM customers OFFSET 11;")
     return cur.fetchall()
 
 
@@ -168,8 +169,6 @@ def task_12_list_suppliers_from_specified_countries(cur):
     """
     cur.execute("""SELECT
     supplierid, suppliername, contactname, city, country
-    FROM suppliers WHERE
-    country IN ('USA', 'UK', 'Japan');""")
     return cur.fetchall()
 
 
@@ -182,8 +181,9 @@ def task_13_list_products_from_sweden_suppliers(cur):
 
     Returns: 3 records
     """
-    cur.execute("""SELECT products.productname, suppliers.country FROM products 
-    INNER JOIN suppliers ON products.supplierid = suppliers.supplierid 
+    cur.execute("""SELECT products.productname
+    FROM products 
+    JOIN suppliers ON products.supplierid = suppliers.supplierid 
     WHERE suppliers.country = 'Sweden';""")
     return cur.fetchall()
 
@@ -197,9 +197,10 @@ def task_14_list_products_with_supplier_information(cur):
 
     Returns: 77 records
     """
-    cur.execute("""SELECT products.productid, products.productname, products.unit, products.price, 
-    products.country, products.city, products.suppliername  FROM products 
-    LEFT JOIN suppliers ON products.supplierid = products.supplierid;""")
+    cur.execute("""SELECT products.productid, products.productname, products.unit, products.price, suppliers.country, 
+    suppliers.city, suppliers.suppliername  
+    FROM products 
+    LEFT JOIN suppliers ON products.supplierid = suppliers.supplierid;""")
     return cur.fetchall()
 
 
@@ -231,8 +232,9 @@ def task_16_match_all_customers_and_suppliers_by_country(cur):
     customers.address, 
     customers.country AS customercountry, 
     suppliers.country AS suppliercountry, 
-    suppliername 
+    suppliers.suppliername 
     FROM customers 
-    FULL OUTER JOIN suppliers ON customers.country = suppliers.country;""")
+    FULL OUTER JOIN suppliers ON customers.country = suppliers.country ORDER BY customercountry, suppliercountry;""")
     return cur.fetchall()
+
 
