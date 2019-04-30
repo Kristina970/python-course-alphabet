@@ -169,13 +169,8 @@ def task_12_list_suppliers_from_specified_countries(cur):
     """
     cur.execute("""SELECT
     supplierid, suppliername, contactname, city, country
-<<<<<<< HEAD
     FROM suppliers WHERE
     country IN ('USA', 'UK', 'Japan');""")
-=======
-    FROM suppliers 
-    WHERE country IN ('USA', 'UK','Japan');""")
->>>>>>> homework3db
     return cur.fetchall()
 
 
@@ -189,8 +184,8 @@ def task_13_list_products_from_sweden_suppliers(cur):
     Returns: 3 records
     """
     cur.execute("""SELECT products.productname
-    FROM products 
-    JOIN suppliers ON products.supplierid = suppliers.supplierid 
+    FROM products
+    JOIN suppliers ON products.supplierid = suppliers.supplierid
     WHERE suppliers.country = 'Sweden';""")
     return cur.fetchall()
 
@@ -204,16 +199,11 @@ def task_14_list_products_with_supplier_information(cur):
 
     Returns: 77 records
     """
-<<<<<<< HEAD
-    cur.execute("""SELECT products.productid, products.productname, products.unit, products.price, 
-    products.country, products.city, products.suppliername  FROM products 
-    LEFT JOIN suppliers ON products.supplierid = products.supplierid;""")
-=======
+
     cur.execute("""SELECT products.productid, products.productname, products.unit, products.price, suppliers.country, 
     suppliers.city, suppliers.suppliername  
     FROM products 
     LEFT JOIN suppliers ON products.supplierid = suppliers.supplierid;""")
->>>>>>> homework3db
     return cur.fetchall()
 
 
@@ -226,8 +216,8 @@ def task_15_list_customers_with_any_order_or_not(cur):
 
     Returns: 213 records
     """
-    cur.execute("""SELECT customers.customername, customers.contactname, customers.country, orders.orderid 
-    FROM customers 
+    cur.execute("""SELECT customers.customername, customers.contactname, customers.country, orders.orderid
+    FROM customers
     FULL OUTER JOIN orders ON customers.customerid = orders.customerid;""")
     return cur.fetchall()
 
