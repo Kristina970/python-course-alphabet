@@ -219,9 +219,5 @@ if __name__ == "__main__":
 
     print("Here we will get the price of all cars in the", cesar2.name, "garages. \n"
           "So the total sum is:", cesar2.hit_hat(), "\n")
-    # print(cesar2.name)
-    # print(cesar2.hit_hat())
+
     print("Compare if", cesar1.name, "spent more money than", cesar2.name, "-", cesar1.hit_hat() > cesar2.hit_hat())
-    # print('cesar.сars_count = ', cesar2.cars_count())
-    # #cesar2.garages[0].remove(cesar2.garages[0].cars[0])
-    # print('cesar.сars_count = ', cesar2.cars_count())
