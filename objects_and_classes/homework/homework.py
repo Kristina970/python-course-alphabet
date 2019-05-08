@@ -28,11 +28,12 @@ class Cesar:
         return 'name: {self.name}, garage: {self.garages}, id: {self.register_id}'.format(self=self)
 
     def hit_hat(self):
-        car_price = 0.0
         for garage in self.garages:
-            for car in garage.cars:
-                car_price += car.price
-        return car_price
+            car_price = 0
+            for garage in self.garages:
+                for car in garage.cars:
+                    car_price += car.price
+            return car_price
 
     def garages_count(self):
         return len(self.garages)
@@ -141,7 +142,7 @@ class Garage:
     remove(cat) -> Забирає машину з гаражу.
     hit_hat() -> Вертає сумарну вартість всіх машин в гаражі
 """
-    def __init__(self, town: TOWNS, cars, places, owner=None):
+    def __init__(self, cars, places, town: TOWNS, owner=None):
             self.town = town if town in TOWNS else None
             self.cars = cars
             self.places = places
@@ -210,8 +211,6 @@ if __name__ == "__main__":
     print("Let's check amount of garages", cesar1.name, "has:", cesar1.garages_count(), "\n")
 
     print(cesar1.name, "has", cesar1.cars_count(), "cars")
-
-    print(cesar1.name, "wants to add their car to the garage, let's see:", cesar1.add_car(2, garages[4]), "\n")
 
     print(f' Cesar name is: {cesar2.name}, \n'
           f'here is a list of garages {cesar2.name} owns: \n {cesar2.garages},\n '
