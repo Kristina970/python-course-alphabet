@@ -1,6 +1,7 @@
 database:
   database: cursor_db
   user: cursor
+<<<<<<< HEAD
   password": very_secret_password
   port: 5432
 
@@ -8,3 +9,12 @@ Programmer:
   name: Kris
   language: Python
   position: Unknown
+=======
+  password: very_secret_password
+  port: 5432
+
+Programmer:
+  name: Denis
+  language: Python
+  position: Senior
+>>>>>>> f07bec3747a40695b27082ca48aae333e38da811
