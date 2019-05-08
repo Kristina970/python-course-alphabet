@@ -196,6 +196,8 @@ if __name__ == "__main__":
             price=random.uniform(100000, 1000000),
             mileage=random.uniform(25, 10000)
         )
+        cars.append(car)
+
         cesar1.add_car(car, random.choice(garages))
         cesar2.add_car(car, random.choice(garages))
 
@@ -211,6 +213,8 @@ if __name__ == "__main__":
     print("Let's check amount of garages", cesar1.name, "has:", cesar1.garages_count(), "\n")
 
     print(cesar1.name, "has", cesar1.cars_count(), "cars")
+
+    print(cesar1.name, "wants to add their car to the garage, let's see:", cesar1.add_car(cars[2], garages[1]), "\n")
 
     print(f' Cesar name is: {cesar2.name}, \n'
           f'here is a list of garages {cesar2.name} owns: \n {cesar2.garages},\n '
