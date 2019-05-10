@@ -28,12 +28,11 @@ class Cesar:
         return 'name: {self.name}, garage: {self.garages}, id: {self.register_id}'.format(self=self)
 
     def hit_hat(self):
+        car_price = 0
         for garage in self.garages:
-            car_price = 0
-            for garage in self.garages:
-                for car in garage.cars:
-                    car_price += car.price
-            return car_price
+            for car in garage.cars:
+                car_price += car.price
+        return car_price
 
     def garages_count(self):
         return len(self.garages)
