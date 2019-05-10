@@ -46,40 +46,31 @@ class Cesar:
         return car_amount
 
     def add_car(self, car, garage=None):
-        if garage:
-            if garage.free_places():
-                garage.add_car(car)
-                return f'Сar was added to garage: {garage}, town: {garage.town}'
-
-            else:
-                return 'no free places in the selected garage'
-        maximum = 0
-        max_garage = None
-        for garage in self.garages:
-            if garage.free_places() >= maximum:
-                maximum = garage.free_places()
-                max_garage = garage
-
-        if max_garage in None:
-            return 'No free places'
-
-        max_garage.add_car(car)
-        return f'Сar was added to garage: {max_garage}, town: {max_garage.town}'
+        if garage is None:
+            maximum = 0
+            max_garage = None
+            for garage in self.garages:
+                if garage.free_places() >= maximum:
+                    maximum = garage.free_places()
+                    max_garage = garage
+            return max_garage.add_car(car) if garage else 'no free places found'
+        else:
+            return garage.add_car(car)
 
     def __lt__(self, other):
-        return other.hit_hat() < self.hit_hat()
+        return self.hit_hat() < other.hit_hat()
 
     def __gt__(self, other):
-        return other.hit_hat() > self.hit_hat()
+        return self.hit_hat() > other.hit_hat()
 
     def __le__(self, other):
-        return other.hit_hat() <= self.hit_hat()
+        return self.hit_hat() <= other.hit_hat()
 
     def __ge__(self, other):
-        return other.hit_hat() >= self.hit_hat()
+        return self.hit_hat() >= other.hit_hat()
 
     def __eq__(self, other):
-        return other.hit_hat() == self.hit_hat()
+        return self.hit_hat() == other.hit_hat()
 
 
 class Car:
@@ -104,27 +95,27 @@ class Car:
         self.producer = producer
         self.car_type = car_type if car_type in CARS_TYPES else None
 
-    def __str__(self):
-        return 'producer: {self.producer}, type: {self.type}, price: {self.price}, ' \
+    def __repr__(self):
+        return 'producer: {self.producer}, type: {self.car_type}, price: {self.price}, ' \
                'mileage: {self.mileage}, number: {self.number}'.format(self=self)
 
     def change_number(self):
         self.number = uuid.uuid4()
 
     def __lt__(self, other):
-        return other.price < self.price
+        return self.price < other.price
 
     def __eq__(self, other):
-        return other.price == self.price
+        return self.price == other.price
 
     def __le__(self, other):
-        return other.price <= self.price
+        return self.price <= other.price
 
     def __ge__(self, other):
-        return other.price >= self.price
+        return self.price >= other.price
 
     def __gt__(self, other):
-        return other.price > self.price
+        return self.price > other.price
 
 
 class Garage:
@@ -148,7 +139,7 @@ class Garage:
             self.places = places
             self.owner = owner if owner else uuid.uuid4()
 
-    def __str__(self):
+    def __repr__(self):
         return 'town: {self.town}, car: {self.cars}, place: {self.places}, ownerid: {self.owner}'.format(self=self)
 
     def add_car(self, car: Car):
@@ -224,3 +215,4 @@ if __name__ == "__main__":
           "So the total sum is:", cesar2.hit_hat(), "\n")
 
     print("Compare if", cesar1.name, "spent more money than", cesar2.name, "-", cesar1.hit_hat() > cesar2.hit_hat())
+    print('TEST ADD CAR', cesar1.add_car(cars[0]))
