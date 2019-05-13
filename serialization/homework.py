@@ -270,7 +270,7 @@ class Garage:
 
     def from_json_file(self):
         with open('garage_file.json', "r") as file:
-            restored_garage_file = json.load(file, object_pairs_hook=Garage.from_json)
+            restored_garage_file = json.load(file, object_hook=Garage.from_json)
             return restored_garage_file
 
 
