@@ -87,7 +87,7 @@ class Cesar:
         return Cesar(name=name, garages=garages)
 
     def to_yaml_string(self):
-        cesar_yaml_string = self.to_yaml
+        cesar_yaml_string = self.to_yaml()
         return str(cesar_yaml_string)
 
     def from_yaml_string(self, cesar_yaml_string):
@@ -170,10 +170,9 @@ class Car:
         with open('cars_file.json', "w") as write_file:
             json.dump(self, write_file, default=Car.to_json, indent=6)
 
-
     def from_json_file(self):
         with open('cars_file.json', "r") as file:
-            restored_cars_file = json.load(file,object_hook=Car.from_json)
+            restored_cars_file = json.load(file, object_hook=Car.from_json)
             return restored_cars_file
 
     """Pickle"""
@@ -198,7 +197,7 @@ class Car:
 
     """Yaml"""
     def to_yaml(obj: Car):
-        data = {"name": obj.producer, "garages": obj.car_type, "price": round(obj.price), "mileage": round(obj.mileage)}
+        data = {"producer": obj.producer, "car_type": obj.car_type, "price": round(obj.price), "mileage": round(obj.mileage)}
         return data
 
     def from_yaml(cls, data):
@@ -209,11 +208,11 @@ class Car:
         return Car(producer=producer, car_type=car_type, price=price, mileage=mileage)
 
     def to_yaml_string(self):
-        car_yaml_string = str(self.to_yaml)
+        car_yaml_string = str(self.to_yaml())
         return car_yaml_string
 
     def from_yaml_string(self, car_yaml_string):
-        return Car.from_yaml(yaml.load(car_yaml_string))
+        return Car.from_yaml(self, yaml.load(car_yaml_string))
 
     def to_yaml_file(self, file_name):
         with open(file_name, "w") as write_data:
@@ -224,7 +223,6 @@ class Car:
             return Car.from_yaml(self, yaml.load(read_file))
 
 
-
 class Garage:
     def __init__(self, cars, places, town: TOWNS, owner=None):
             self.town = town if town in TOWNS else None
@@ -233,7 +231,7 @@ class Garage:
             self.owner = owner if owner else uuid.uuid4()
 
     def __repr__(self):
-        return 'town: {self.town}, car: {self.cars}, place: {self.places}, ownerid: {self.owner}'.format(self=self)
+        return 'car: {self.cars}, place: {self.places}, town: {self.town}, ownerid: {self.owner}'.format(self=self)
 
     def add_car(self, car: Car):
         if len(self.cars) < self.places:
@@ -242,7 +240,7 @@ class Garage:
 
     """custome method to convert python object to json"""
     def to_json(obj: Garage):
-        data = {"cars": obj.cars, "places": obj.places, "town": obj.town, "owner": obj.owner}
+        data = {"cars": str(obj.cars), "places": obj.places, "town": obj.town, "owner": str(obj.owner)}
         return data
 
     """custom method to convert from json to python object"""
@@ -259,22 +257,18 @@ class Garage:
         garage_json_string = json.dumps(self, default=Garage.to_json)
         return garage_json_string
 
-
     """method to convert python object to json file"""
-    def to_json_file(self):
-        with open('garage_file.json', "w") as write_file:
+    def to_json_file(self, file_name):
+        with open(file_name, "w") as write_file:
             json.dump(self, write_file, default=Garage.to_json, indent=6)
 
     def from_json_string(self, garage_json_string):
         return json.loads(garage_json_string, object_hook=Garage.from_json)
 
-    def from_json_file(self):
-        with open('garage_file.json', "r") as file:
+    def from_json_file(self, file_name):
+        with open(file_name, "r") as file:
             restored_garage_file = json.load(file, object_hook=Garage.from_json)
             return restored_garage_file
-
-
-
 
 if __name__ == "__main__":
     cesar_id = uuid.uuid4()
@@ -327,9 +321,17 @@ if __name__ == "__main__":
     print("YAML", "\n")
     yaml_string = cesar1.to_yaml_string()
     print("Cesar object to yaml string", yaml_string, "\n")
-    print("YAML file", cesar1.to_yaml_file("yaml.test.yaml"))
     car1 = Car('Ford', 'Sedan', 34, 67)
-    print("Test car", car1.to_yaml_string())
+    print("Car data to yaml string", car1.to_yaml_string())
     car_test = car1.to_yaml_string()
+    print("From yaml", cars[1].from_yaml_string(car_test))
+    yaml_string = cesar1.to_yaml_string()
+    print("Cesar object to yaml string", yaml_string, "\n")
+    print("YAML file")
+    cesar1.to_yaml_file("yaml.test.yaml")
+    print("Cesar from yaml file", type(cesar1.from_yaml_file), cesar1.from_yaml_file('yaml.test.yaml'))
+    print("Garage to json string", garage.to_json_string())
+    garage_json_string = garage.to_json_string()
+    print("Garage from json string", garage.from_json_string(garage_json_string))
 
 
