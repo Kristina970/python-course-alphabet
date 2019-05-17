@@ -321,17 +321,16 @@ class House:
       (from walls_square divide windows and door square)
 
     """
-    __walls = []
-    __windows = []
-    __roof = None
-    __door = None
+    # __walls = []
+    # __windows = []
+    # __roof = None
+    # __door = None
 
     def __init__(self):
-        pass
-        # self.__walls = []
-        # self.__windows = []
-        # self.__roof = None
-        # self.__door = None
+        self.__walls = []
+        self.__windows = []
+        self.__roof = None
+        self.__door = None
 
     def create_wall(self, width: float, height: float):
         if width <= 0 or height <= 0:
