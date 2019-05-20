@@ -13,7 +13,6 @@ Advanced
 """
 
 from __future__ import annotations
-import pdb
 import codecs
 import pickle
 import random
@@ -50,11 +49,10 @@ class Cesar:
         name = data["name"]
         register_id = data["register_id"]
         garages1 = [Garage.from_json_string(garage) for garage in data['garages']]
-
         return Cesar(name=name, garages=garages1, register_id=register_id)
 
     def to_json_string(self):
-        cesar_json_string = json.dumps(self, default=Cesar.to_json)
+        cesar_json_string = json.dumps(self, default=Cesar.to_json, indent=6)
         return str(cesar_json_string)
 
     @staticmethod
@@ -65,21 +63,18 @@ class Cesar:
         except TypeError as e:
             print(e)
 
-
     """method to convert python object to json file"""
 
     def to_json_file(self):
         with open('cesar_file.json', "w") as write_file:
             return json.dump(self, write_file, default=Cesar.to_json)
 
-
     def from_json_file(cls):
         with open('cesar_file.json', "r") as file:
             return json.load(file, object_hook=Cesar.from_json)
 
-
     """Yaml"""
-    def to_yaml(obj: Cesar):
+    def to_yaml(obj:Cesar):
         garages = [garage.to_yaml_string() for garage in obj.garages]
         data = {"name": obj.name, "garages": garages, "register_id": str(obj.register_id)}
         return data
@@ -126,7 +121,6 @@ class Cesar:
         with open('cesar_pickle.file.txt', "rb") as file:
             return pickle.load(file)
 
-
     def add_car(self, car, garage=None):
         if garage is None:
             maximum = 0
@@ -138,6 +132,7 @@ class Cesar:
             return max_garage.add_car(car) if garage else 'no free places found'
         else:
             return garage.add_car(car)
+
 
 class Car:
     def __init__(self, producer: CARS_PRODUCER, car_type: CARS_TYPES, price: float, mileage: float):
@@ -166,9 +161,9 @@ class Car:
 
     """method to convert python object to json string"""
     def to_json_string(self):
-        car_json = Car.to_json(self)
-        car_json_string = json.dumps(car_json)
+        car_json_string = json.dumps(self, default=Car.to_json, indent=6)
         return car_json_string
+
     @staticmethod
     def from_json_string(car_json_string):
         return json.loads(car_json_string, object_hook=Car.from_json)
@@ -247,7 +242,6 @@ class Garage:
             self.cars.append(car)
             return f'Car was added to garage: {self.town}'
 
-
     """custome method to convert python object to json"""
     def to_json(obj: Garage):
         cars = [car.to_json_string() for car in obj.cars]
@@ -267,7 +261,7 @@ class Garage:
 
     """method to convert python object to json string"""
     def to_json_string(self):
-        garage_json_string = json.dumps(self, default=Garage.to_json)
+        garage_json_string = json.dumps(self, default=Garage.to_json, indent=6)
         return garage_json_string
 
     """method to convert python object to json file"""
@@ -310,11 +304,11 @@ class Garage:
     def to_yaml_file(self, file_name):
         with open(file_name, 'w') as write_data:
             return yaml.dump(self.to_yaml(), write_data)
+
     @staticmethod
     def from_yaml_file(file_name):
         with open(file_name, 'r') as read_file:
             return Garage.from_yaml(yaml.load(read_file))
-
 
 
 if __name__ == "__main__":
@@ -351,8 +345,6 @@ if __name__ == "__main__":
         cesar2.add_car(car, random.choice(garages))
 
     print('GARAGE', garages[0])
-    # # print('CESAR', cesar1)
-    # # print('CAR', car)
     gar_to = garages[0].to_json_string()
     print("\n GARAGE TO JSON STR", gar_to)
     print('\n FROM', garages[0].from_json_string(gar_to))
@@ -364,7 +356,7 @@ if __name__ == "__main__":
     print("JSON", "\n")
     print("Convert Cesar object to JSON string", "\n", cesar1.to_json_string(), "\n")
     cesar_string = cesar1.to_json_string()
-    print("Cesar string", cesar_string)
+    print(cesar_string)
     print("Convert JSON Cesar string back", Cesar.from_json_string(cesar_string))
     print("Cesar JSON to file")
     cesar1.to_json_file()
@@ -392,7 +384,7 @@ if __name__ == "__main__":
     print('Car json to srt', car.to_json_string())
     car_to_str = car.to_json_string()
     print('CAR TO JSON STR', car.from_json_string(car_to_str))
-    print("GARGE to JSON", type(garages[0].to_json_string()), garages[0].to_json_string())
+    print("GARaGE to JSON", type(garages[0].to_json_string()), garages[0].to_json_string())
     gar_json = garages[0].to_json_string()
     print('GARAGE FROM', garages[0].from_json_string(gar_json))
     print("Garage to yaml staring", garages[0].to_yaml_string())
