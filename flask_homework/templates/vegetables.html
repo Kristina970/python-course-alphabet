@@ -1,16 +1,14 @@
 {% extends "layout.html" %}
 {% block title %} Fruits {% endblock %}
-{% block head %}
-    {{ super() }}
-{% endblock %}
+
 {% block content %}
 <center>
 <h1 class="my-5 py-5 text-center">Vegetables list</h1>
 </center>
 <div xmlns="">
 <style>
- div {
-  padding: 20px 30px 40px;
+div {
+    padding: 20px 30px 40px;
 }
 p { font-weight: bold; }
 </style>
@@ -24,10 +22,10 @@ p { font-weight: bold; }
 
 
     <input type="submit" value="Save">
-  </form>
+    </form>
 
 
-    </div>
+</div>
  <div class="row">
     {% for vegetable in vegetables %}
 
@@ -37,7 +35,7 @@ p { font-weight: bold; }
     <form method="POST" action="{{ url_for('vegetables.del_vegetable') }}">
         <input type="hidden" name="vegetable" value="{{ vegetable }}" />
      <input type="submit" value="Delete" onclick="return confirm('Delete entry?')" />
-</form>
+    </form>
 </p>
 
 

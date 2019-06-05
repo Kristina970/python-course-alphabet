@@ -12,6 +12,7 @@ FRUITS = [
 
 fruits = Blueprint('fruits', __name__, template_folder='templates')
 
+
 @fruits.route('/fruits')
 def fruits_page():
     return render_template('fruits.html', title='Fruits', fruits=FRUITS)
