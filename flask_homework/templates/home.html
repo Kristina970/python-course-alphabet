@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+{% block title %} Home {% endblock %}
+
+{% block content %}
+<center>
+    <h1>Home Menu</h1>
+</center>
+
+
+    <ul>
+        <li><a href={{ url_for('fruits.fruits_page') }}> Fruits</a></li>
+        <li><a href={{ url_for('vegetables.vegetables_page') }}>Vegetables</a></li>
+        <li><a href={{ url_for('page_not_implemented') }}>Interesting facts</a></li>
+    </ul>
+
+{% endblock %}
