@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, Flask
+from flask import Blueprint, render_template, request, url_for
 from werkzeug.utils import redirect
 
 vegetables = Blueprint('vegetables', __name__, template_folder='templates')
