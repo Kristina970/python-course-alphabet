@@ -22,7 +22,7 @@ font-weight: bold;
     <p>You can add your new fruit here:</p>
 
     <form method="POST" action="{{ url_for('fruits.add_fruit') }}">
-    <label for="title">Vegetable name</label>
+    <label for="title">Fruit name</label>
     <input name="fruit" id="title" value="{{ request.form['fruit']}}" required>
 
 
