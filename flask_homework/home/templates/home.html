@@ -1,5 +1,5 @@
 {% extends "layout.html" %}
-{% block title %} Home {% endblock %}
+{% block title %} {{ title }} {% endblock %}
 
 {% block content %}
 <center>
@@ -11,6 +11,8 @@
         <li><a href={{ url_for('fruits.fruits_page') }}> Fruits</a></li>
         <li><a href={{ url_for('vegetables.vegetables_page') }}>Vegetables</a></li>
         <li><a href={{ url_for('page_not_implemented') }}>Interesting facts</a></li>
+         <li><a href={{ url_for('redirect_page') }}>Redirect</a></li>
+
     </ul>
 
 {% endblock %}

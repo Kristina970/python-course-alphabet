@@ -12,6 +12,7 @@ VEGETABLES = [
 
 ]
 
+
 @vegetables.route('/vegetables')
 def vegetables_page():
     return render_template('vegetables.html', title='Vegetables', vegetables=VEGETABLES)
