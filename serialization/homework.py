@@ -17,14 +17,15 @@ Advanced
 """
 
 from __future__ import annotations
-import codecs
+from ruamel.yaml import YAML
+import json
 import pickle
+import codecs
 import random
 import uuid
 from builtins import str
 from constants import CARS_TYPES, CARS_PRODUCER, TOWNS
-import json
-from ruamel.yaml import YAML
+
 
 yaml = YAML()
 
@@ -69,7 +70,8 @@ class Cesar:
         with open('cesar_file.json', "w") as write_file:
             return json.dump(self, write_file, default=Cesar.to_json)
 
-    def from_json_file(self):
+    @staticmethod
+    def from_json_file():
         with open('cesar_file.json', "r") as f:
             return json.load(f)
 
@@ -82,13 +84,13 @@ class Cesar:
         return pickle.loads(codecs.decode(cesar_pickle_string.encode(), "base64"))
 
     def to_pickle_file(self):
-        with open('cesar_pickle.file.txt', "wb") as file:
-            pickle.dump(self, file)
+        with open('cesar_pickle.dat', "wb") as f:
+            pickle.dump(self, f)
 
     @staticmethod
     def from_pickle_file():
-        with open('cesar_pickle.file.txt', "rb") as file:
-            return pickle.load(file)
+        with open('cesar_pickle.dat', "rb") as f:
+            return pickle.load(f)
 
     def add_car(self, car, garage=None):
         if garage is None:
@@ -144,9 +146,10 @@ class Car:
         with open("cars_file.json", 'w') as write_file:
             json.dump(self, write_file, default=Car.to_json)
 
-    def from_json_file(self):
-        with open('cars_file.json', "r") as file:
-            restored_cars_file = json.load(file, object_hook=Car.from_json)
+    @staticmethod
+    def from_json_file():
+        with open('cars_file.json', "r") as f:
+            restored_cars_file = json.load(f, object_hook=Car.from_json)
             return restored_cars_file
 
     def to_pickle_string(self):
@@ -158,13 +161,13 @@ class Car:
         return pickle.loads(codecs.decode(car_pickle_string.encode(), "base64"))
 
     def to_pickle_file(self):
-        with open('car_pickle.file.txt', "wb") as file:
-            pickle.dump(self, file)
+        with open('car_pickle.dat', "wb") as f:
+            pickle.dump(self, f)
 
     @staticmethod
     def from_pickle_file():
-        with open('car_pickle.file.txt', "rb") as file:
-            return pickle.load(file)
+        with open('car_pickle.dat', "rb") as f:
+            return pickle.load(f)
 
     def to_yaml(self: Car):
         data = {"producer": self.producer, "car_type": self.car_type,
@@ -188,11 +191,12 @@ class Car:
         return Car.from_yaml(yaml.load(car_yaml_string))
 
     def to_yaml_file(self):
-        with open('car_file', "w") as write_data:
+        with open('car_file.yaml', "w") as write_data:
             return yaml.dump(self.to_yaml(), write_data)
 
-    def from_yaml_file(self):
-        with open('car_file', "r") as read_file:
+    @staticmethod
+    def from_yaml_file():
+        with open('car_file.yaml', "r") as read_file:
             return Car.from_yaml(yaml.load(read_file))
 
 
@@ -233,7 +237,7 @@ class Garage:
         return garage_json_string
 
     def to_json_file(self):
-        with open('garage_file', "w") as write_file:
+        with open('garage_file.json', "w") as write_file:
             json.dump(self, write_file, default=Garage.to_json)
 
     @staticmethod
@@ -241,7 +245,7 @@ class Garage:
         return json.loads(garage_json_string)
 
     def from_json_file(self):
-        with open('garage_file', "r") as file:
+        with open('garage_file.json', "r") as file:
             restored_garage_file = json.load(file)
             return restored_garage_file
 
@@ -268,11 +272,11 @@ class Garage:
         return Garage.from_yaml(yaml.load(garage_yaml_string))
 
     def to_yaml_file(self):
-        with open('garage_yaml', 'w') as write_data:
+        with open('garage_yaml.yaml', 'w') as write_data:
             return yaml.dump(self.to_yaml(), write_data)
 
     def from_yaml_file(self):
-        with open('garage_yaml', 'r') as read_file:
+        with open('garage_yaml.yaml', 'r') as read_file:
             return Garage.from_yaml(yaml.load(read_file))
 
 
@@ -283,6 +287,7 @@ if __name__ == "__main__":
     print(" ")
 
     garages = []
+
 
     for _ in range(2):
         garage = Garage(
