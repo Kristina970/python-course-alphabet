@@ -2,17 +2,17 @@ import random
 import unittest
 
 from build_in_methods_iterators.homework import (
-    task_4_min_value_integers,
-    task_5_min_value_strings,
-    task_6_min_value_list_of_dicts,
-    task_7_max_value_list_of_lists,
-    task_8_sum_of_ints,
-    task_9_sum_characters_positions,
-    task_1_fix_names_start_letter,
-    task_2_remove_dict_fields,
-    task_3_find_item_via_value,
-    task_10_generator_of_simple_numbers,
-    task_11_create_list_of_random_characters
+     task_4_min_value_integers,
+     task_5_min_value_strings,
+     task_6_min_value_list_of_dicts,
+     task_7_max_value_list_of_lists,
+     task_8_sum_of_ints,
+     task_9_sum_characters_positions,
+     task_1_fix_names_start_letter,
+     task_2_remove_dict_fields,
+     task_3_find_item_via_value,
+     task_10_generator_of_simple_numbers,
+     task_11_create_list_of_random_characters
 )
 
 
@@ -43,7 +43,7 @@ class MinTestCases(unittest.TestCase):
 
     def test_task_5_int_values(self):
         given_data = ['Year', 'has', 12, 'months']
-        self.assertEqual(task_5_min_value_strings(given_data), "12")
+        self.assertEqual(task_5_min_value_strings(given_data), '12')
 
     def test_task_6_valid_values(self):
         members = [
