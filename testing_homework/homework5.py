@@ -242,11 +242,6 @@ class Garage:
         return 'cars: {self.cars}, place: {self.places}, ' \
                'town: {self.town}, ownerid: {self.owner}'.format(self=self)
 
-    def add_car(self, car: Car):
-        if len(self.cars) < self.places:
-            self.cars.append(car)
-            return f'Car was added to garage: {self.town}'
-
     def free_places(self):
         return self.places - len(self.cars)
 
@@ -263,7 +258,7 @@ class Garage:
         return sum_car
 
     def add_c(self, car: Car):
-        if len(self.cars) <= len(self.places):
+        if len(self.cars) < self.places:
             self.cars.append(car)
             return f'Car was added to garage: {self.town}'
 
@@ -331,6 +326,3 @@ class Garage:
     def from_yaml_file():
         with open('garage_yaml.yaml', 'r') as read_file:
             return Garage.from_yaml(yaml.load(read_file))
-
-
-
