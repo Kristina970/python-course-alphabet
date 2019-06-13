@@ -1,4 +1,7 @@
 from __future__ import annotations
+
+from typing import List
+
 from ruamel.yaml import YAML
 import json
 import pickle
@@ -96,8 +99,8 @@ class Cesar:
             return json.dump(self, write_file, default=Cesar.to_json)
 
     @staticmethod
-    def from_json_file():
-        with open('cesar_file.json', "r") as f:
+    def from_json_file(path='cesar_file.json'):
+        with open(path, "r") as f:
             return json.load(f)
 
     def to_pickle_string(self):
@@ -152,7 +155,7 @@ class Car:
     def to_json(self: Car):
         data = {"producer": self.producer,
                 "car_type": self.car_type,
-                "price": str(self.price),
+                "price": self.price,
                 "mileage": self.mileage}
         return data
 
@@ -173,13 +176,13 @@ class Car:
     def from_json_string(car_json_string):
         return json.loads(car_json_string, object_hook=Car.from_json)
 
-    def to_json_file(self):
-        with open("cars_file.json", 'w') as write_file:
+    def to_json_file(self, file_name):
+        with open(file_name, 'w') as write_file:
             json.dump(self, write_file, default=Car.to_json)
 
     @staticmethod
-    def from_json_file():
-        with open('cars_file.json', "r") as f:
+    def from_json_file(path='cars_file.json'):
+        with open(path, "r") as f:
             restored_cars_file = json.load(f, object_hook=Car.from_json)
             return restored_cars_file
 
@@ -232,7 +235,7 @@ class Car:
 
 
 class Garage:
-    def __init__(self, places, town: TOWNS, owner=None, cars=[]):
+    def __init__(self, places, town: TOWNS, owner=None, cars:List[Car]=[]):
         self.town = town if town in TOWNS else None
         self.cars = cars
         self.places = places
@@ -291,8 +294,8 @@ class Garage:
         return json.loads(garage_json_string)
 
     @staticmethod
-    def from_json_file():
-        with open('garage_file.json', "r") as f:
+    def from_json_file(path='garage_file.json'):
+        with open(path, "r") as f:
             restored_garage_file = json.load(f)
             return restored_garage_file
 

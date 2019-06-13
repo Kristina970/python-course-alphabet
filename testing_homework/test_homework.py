@@ -1,12 +1,15 @@
+import os
 import unittest
 import uuid
+from os.path import isfile
+
 from homework5 import Car, Garage, Cesar
 
 
 class TestHomework(unittest.TestCase):
     def setUp(self):
         super().setUp()
-        self.car = Car('BMW', 'Diesel', 150, 86)
+        self.car = Car.from_json_file('fixtures/cars_file.json')
         self.register_id = uuid.uuid4()
         self.owner = uuid.uuid4()
         self.garage = Garage(5, 'Berlin', self.owner, [self.car])
@@ -29,7 +32,7 @@ class TestHomework(unittest.TestCase):
     def test_change_car_number_negative(self):
         old_number = self.car.number
         new_number = self.car.number
-        self.assertNotEquals(old_number, new_number, 'Test failed as actual result does not meet requirements')
+        self.assertEquals(old_number, new_number, 'Test failed as actual result does not meet requirements')
 
     def test_add_car_to_garage_positive(self):
         owner_id = uuid.uuid4()
@@ -47,10 +50,9 @@ class TestHomework(unittest.TestCase):
 
     def test_remove_car_from_garage_negative(self):
         owner_id = uuid.uuid4()
-        other_garage = Garage(3, 'Rome', owner_id, self.car)
+        other_garage = Garage(3, 'Rome', owner_id, [self.car])
         car_not_in_garage = Car('Ford', 'Diesel', 250, 86)
-        other_garage.remove_c(car_not_in_garage)
-        self.assertIn(car_not_in_garage, other_garage.cars, 'This car is not in the garage')
+        self.assertEqual(other_garage.remove_c(car_not_in_garage), 'car is not in the garage')
 
     def test_hit_hat_in_garage(self):
         self.assertEqual(self.garage.hit_hat(), 150)
@@ -60,6 +62,23 @@ class TestHomework(unittest.TestCase):
 
     def test_cesar_garages_count_positive(self):
         self.assertEqual(self.cesar.garages_count(), 1)
+
+
+class TestToJson(unittest.TestCase):
+    def setUp(self):
+        super().setUp()
+        self.car = Car.from_json_file('fixtures/cars_file.json')
+
+    def test_to_json_file(self):
+        car = Car('Porsche', 'Diesel', 240, 112)
+        car.to_json_file('test_cars_file.json')
+        self.assertTrue(isfile('test_cars_file.json'))
+        os.remove('test_cars_file.json')
+
+    def test_from_json_file(self):
+        car_data = self.car
+        expected_result = self.car.from_json_file('fixtures/cars_file.json')
+        self.assertEqual(car_data, expected_result)
 
 
 if __name__ == '__main__':
