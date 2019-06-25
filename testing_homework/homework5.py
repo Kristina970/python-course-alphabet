@@ -285,8 +285,8 @@ class Garage:
         garage_json_string = json.dumps(garage_json)
         return garage_json_string
 
-    def to_json_file(self):
-        with open('garage_file.json', "w") as write_file:
+    def to_json_file(self, file_name):
+        with open(file_name, "w") as write_file:
             json.dump(self, write_file, default=Garage.to_json)
 
     @staticmethod
@@ -329,3 +329,4 @@ class Garage:
     def from_yaml_file():
         with open('garage_yaml.yaml', 'r') as read_file:
             return Garage.from_yaml(yaml.load(read_file))
+

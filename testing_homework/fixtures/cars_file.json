@@ -1,1 +1,6 @@
-{"producer": "BMW", "car_type": "Diesel", "price": 150, "mileage": 86}
+{
+  "producer": "BMW",
+  "car_type": "Diesel",
+  "price": 150,
+  "mileage": 86
+}

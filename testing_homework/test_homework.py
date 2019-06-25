@@ -12,9 +12,10 @@ class TestHomework(unittest.TestCase):
         self.car = Car.from_json_file('fixtures/cars_file.json')
         self.register_id = uuid.uuid4()
         self.owner = uuid.uuid4()
-        self.garage = Garage(5, 'Berlin', self.owner, [self.car])
+        self.garage = Garage.from_json_file('fixtures/garage_file.json')
+        #self.garage = Garage(5, 'Berlin', self.owner, [self.car])
         self.register_id = uuid.uuid4()
-        self.cesar = Cesar('Rich', [self.garage])
+        self.cesar = Cesar.from_json_file('fixtures/cesar_file.json')
 
     def test_other_car_expensive(self):
         other_car = Car('Toyota', 'Disel', 200, 13)
@@ -55,30 +56,52 @@ class TestHomework(unittest.TestCase):
         self.assertEqual(other_garage.remove_c(car_not_in_garage), 'car is not in the garage')
 
     def test_hit_hat_in_garage(self):
-        self.assertEqual(self.garage.hit_hat(), 150)
+        owner_id = uuid.uuid4()
+        other_garage = Garage(3, 'Rome', owner_id, [self.car])
+        self.assertEqual(other_garage.hit_hat(), 150)
 
     def test_cesar_hit_hat(self):
-        self.assertEqual(self.cesar.hit_hat(), 150)
+        owner_id = uuid.uuid4()
+        other_garage = Garage(3, 'Rome', owner_id, [self.car])
+        other_cesar = Cesar('Rich', [other_garage])
+        self.assertEqual(other_cesar.hit_hat(), 150)
 
     def test_cesar_garages_count_positive(self):
-        self.assertEqual(self.cesar.garages_count(), 1)
+        owner_id = uuid.uuid4()
+        other_garage = Garage(3, 'Rome', owner_id, [self.car])
+        other_cesar = Cesar('Rich', [other_garage])
+        self.assertEqual(other_cesar.garages_count(), 1)
 
 
 class TestToJson(unittest.TestCase):
     def setUp(self):
         super().setUp()
         self.car = Car.from_json_file('fixtures/cars_file.json')
+        self.garage = Garage.from_json_file('fixtures/garage_file.json')
+        self.cesar = Cesar.from_json_file('fixtures/cesar_file.json')
+        self.owner = uuid.uuid4()
 
-    def test_to_json_file(self):
+    def test_car_to_json_file(self):
         car = Car('Porsche', 'Diesel', 240, 112)
         car.to_json_file('test_cars_file.json')
         self.assertTrue(isfile('test_cars_file.json'))
         os.remove('test_cars_file.json')
 
-    def test_from_json_file(self):
+    def test_car_from_json_file(self):
         car_data = self.car
-        expected_result = self.car.from_json_file('fixtures/cars_file.json')
+        expected_result = Car.from_json_file('fixtures/cars_file.json')
         self.assertEqual(car_data, expected_result)
+
+    def test_garage_to_json_file(self):
+        garage = Garage(3, 'Rome', self.owner, [self.car])
+        garage.to_json_file('test_garage_file.json')
+        self.assertTrue(isfile('test_garage_file.json'))
+        os.remove('test_garage_file.json')
+
+    def test_garage_from_json_file(self):
+        garage_data = self.garage
+        expected_result = Garage.from_json_file('fixtures/garage_file.json')
+        self.assertEqual(garage_data, expected_result)
 
 
 if __name__ == '__main__':
