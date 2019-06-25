@@ -1,0 +1,13 @@
+{
+  "places": 4,
+  "town": "Berlin",
+  "owner": "1014a127-80ac-445b-b7a5-de219a18cc9b",
+  "cars": [
+    {
+  "producer": "BMW",
+  "car_type": "Diesel",
+  "price": 150,
+  "mileage": 86
+}
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "name": "Rich",
+  "garages": [
+    {
+      "places": 4,
+      "town": "Berlin",
+      "owner": "1014a127-80ac-445b-b7a5-de219a18cc9b",
+      "cars": [
+        {
+          "producer": "BMW",
+          "car_type": "Diesel",
+          "price": 150,
+          "mileage": 86
+        }
+      ]
+    }
+  ],
+  "register_id": "e88ccb5c-0dac-4c34-8519-8967391e38f8"
+}
