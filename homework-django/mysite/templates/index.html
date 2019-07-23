@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block header %}
+{% if user.is_authenticated %}
+<p> Hi {{ user.email }} </p>
+
+    {% comment %}
+   <a href="{% url 'profile' %}">Profile</a>
+    {% endcomment %}
+    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'create' %}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+{% comment %}
+<a href="{% url '/pdate_profile' account.id%}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
+{% endcomment %}
+
+
+
+
+
+{% else %}
+
+<h2>You're not logged in</h2>
+<h2><a  href="{% url 'login' %}">Login</a>
+<a href="{% url 'signup' %}">Sign Up</a></h2>
+
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h1>{{ page_title }}</h1>
+<div class="content container">
+ <div class="row">
+<div class="col-md-8">
+{% for article in articles %}
+ <div class="content container">
+
+<div class="row">
+
+    <a href="{% url 'detail' article.id %}">{{ article.title }}</a>
+    <br>
+    <p>{{ article.description }}</p>
+    <p>{{ article.created_date }}</p>
+    <a href="{% url 'detail' article.id %}">Number of Comments: {{ article.comments.count }}</a>
+
+
+
+    <hr>
+</div>
+</div>
+{% endfor %}
+
+
+{% endblock %}
