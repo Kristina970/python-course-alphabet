@@ -14,7 +14,11 @@ class IndexView(ListView):
     context_object_name = 'articles'
 
     def get_queryset(self):
-        return Article.objects.all()
+        articles_list = Article.objects.all()
+        paginator = Paginator(articles_list, 5)  # Show 5 contacts per page
+        page = self.request.GET.get('page')
+        articles_list = paginator.get_page(page)
+        return articles_list
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(IndexView, self).get_context_data()

@@ -31,6 +31,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'mysite',
+    'django.contrib.sites',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -42,6 +44,7 @@ INSTALLED_APPS = [
 
     'ckeditor',
     'ckeditor_uploader',
+    'disqus'
 ]
 
 MIDDLEWARE = [
@@ -76,6 +79,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'mysite.wsgi.application'
 
+SITE_ID = 1
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -152,3 +156,6 @@ CKEDITOR_UPLOAD_PATH = "uploads/"
 # SERVER_EMAIL = 'noreply@ali.com'
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
+
+DISQUS_API_KEY = 'MYoaHIbIowGYXUYEZe9EW0WfS7sVQpHfCbl4ZFMsajJ62LU9TZDv6FOv5MJzjLch'
+DISQUS_WEBSITE_SHORTNAME = 'test-blog'

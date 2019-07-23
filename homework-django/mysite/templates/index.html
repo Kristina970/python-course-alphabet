@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block header %}
 {% if user.is_authenticated %}
-<p> Hi {{ user.email }} </p>
+<p> Hi {{ user.username }} </p>
 
     {% comment %}
    <a href="{% url 'profile' %}">Profile</a>
@@ -11,9 +11,6 @@
 {% comment %}
 <a href="{% url '/pdate_profile' account.id%}" class="top-menu"><span class="glyphicon glyphicon-plus"></span></a>
 {% endcomment %}
-
-
-
 
 
 {% else %}
@@ -48,6 +45,22 @@
 </div>
 </div>
 {% endfor %}
+   <div class="pagination">
+    <span class="step-links">
+        {% if articles.has_previous %}
+            <a href="?page=1">&laquo; first</a>
+            <a href="?page={{ articles.previous_page_number }}">previous</a>
+        {% endif %}
 
+        <span class="current">
+            Page {{ articles.number }} of {{ articles.paginator.num_pages }}.
+        </span>
+
+        {% if articles.has_next %}
+            <a href="?page={{ articles.next_page_number }}">next</a>
+            <a href="?page={{ articles.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
 
 {% endblock %}
