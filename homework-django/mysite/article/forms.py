@@ -1,5 +1,6 @@
 from django import forms
 from .models import Article, Comment, ReplyComment
+from django.db import models
 
 
 class ArticleForm(forms.ModelForm):
@@ -13,6 +14,9 @@ class ArticleForm(forms.ModelForm):
 
 class CommentForm(forms.ModelForm):
 
+    author_name = forms.CharField(
+        widget=forms.TextInput(attrs={'readonly': 'readonly'})
+    )
     class Meta:
         model = Comment
         fields = ('author_name', 'comment',)

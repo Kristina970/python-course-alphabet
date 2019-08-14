@@ -120,7 +120,7 @@ class CommentReplyView(FormMessageMixin, CreateView):
             reply.save()
 
         return redirect('detail', article_id=comment.post_id)
-        # return render(request, 'detail.html', {'form': reply_form})
+
 
 
 

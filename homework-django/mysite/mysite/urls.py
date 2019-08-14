@@ -19,7 +19,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from article.views import IndexView, ArticleCreateView, ArticleDetailView, ArticleUpdateView, ArticleDeleteView, ArticleCommentView, CommentReplyView
 from account.views import ProfileDetailView, SignUp, ProfileUpdateView
-
+from ckeditor_uploader import views as uploader_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -35,6 +35,12 @@ urlpatterns = [
     path('account/', include('django.contrib.auth.urls')),
     path('signup/', SignUp.as_view(), name='signup'),
     path('account/edit/<int:profile_id>', ProfileUpdateView.as_view(), name='update_profile'),
-    path('ckeditor/', include('ckeditor_uploader.urls'))
+    #path('ckeditor/', include('ckeditor_uploader.urls'))
+    path('ckeditor/upload/',
+        uploader_views.upload, name='ckeditor_upload'),
+    path('ckeditor/browse/',
+        uploader_views.browse, name='ckeditor_browse'),
+
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
